@@ -1,0 +1,18 @@
+_BASE_: "~/detectron2/detectron2/configs/Base-RCNN-FPN.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  MASK_ON: False
+  RESNETS:
+    DEPTH: 50
+  ROI_HEADS:
+    NUM_CLASSES: 20
+DATASETS:
+  TRAIN: ('custom_voc_2007_train','custom_voc_2007_val','custom_voc_2012_train','custom_voc_2012_val',)
+  TEST: ('custom_voc_2007_test','WR1_Mixed_Unknowns')
+#  TEST: ('custom_voc_2007_test','Mixed_Unknowns')
+
+SOLVER:
+  BASE_LR: 0.01
+  STEPS: (24000, 32000)
+  MAX_ITER: 36000
+  WARMUP_ITERS: 100
