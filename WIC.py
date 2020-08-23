@@ -1,8 +1,21 @@
 import logging
 import torch
 import numpy as np
+from matplotlib import pyplot as plt
 
 logger = logging.getLogger("detectron2")
+
+# Plot Precision Recall graphs
+def PR_plotter(Precision, Recall, cls_name, ap):
+    plt.subplots()
+    plt.plot(Recall, Precision, 'b', label=f"{round(ap.item() * 100, 2)}%")
+    plt.title(cls_name)
+    plt.ylabel('Precision', fontsize=20)
+    plt.xlabel('Recall', fontsize=20)
+    plt.axis([0, 1, 0, 1])
+    plt.legend(loc=3, prop={'size': 25}, frameon=False)
+    plt.savefig(f"PR/{cls_name}_Precision_recall.pdf", bbox_inches="tight")
+
 
 def calculate_precision_recall(TP_vs_FP, scores, total_no_of_pos):
     scores, sorted_indx = torch.sort(scores, dim=-1, descending=True)
@@ -24,7 +37,7 @@ def calculate_precision_recall(TP_vs_FP, scores, total_no_of_pos):
     Precision = torch.tensor(Precision)
     return Precision, Recall
 
-def only_mAP_analysis(correct,scores,pred_classes,category_counts):
+def only_mAP_analysis(correct, scores, pred_classes, category_counts, categories = None):
     correct = torch.cat(correct)
     scores = torch.cat(scores)
     pred_classes = torch.cat(pred_classes)
@@ -38,6 +51,8 @@ def only_mAP_analysis(correct,scores,pred_classes,category_counts):
         for thresh in torch.arange(0, 1.1, 0.1):
             ap.append(torch.max(Precision[Recall >= thresh]))
         ap = torch.mean(torch.tensor(ap))
+        if categories is not None:
+            PR_plotter(Precision, Recall, categories[cls_no+1]['name'], ap)
         all_ap.append(ap)
 
         logger.info(f"AP for {cls_no}: {ap}")

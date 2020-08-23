@@ -59,7 +59,8 @@ def do_test(cfg, model):
             WIC.only_mAP_analysis(results[dataset_name]['predictions']['correct'],
                                   results[dataset_name]['predictions']['scores'],
                                   results[dataset_name]['predictions']['pred_classes'],
-                                  results[dataset_name]['category_counts'])
+                                  results[dataset_name]['category_counts'],
+                                  evaluator._coco_api.cats)
     if comm.is_main_process():
         logger.info(f"Combined results for datasets {', '.join(cfg.DATASETS.TEST)}")
         eval_info={}
