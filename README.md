@@ -14,7 +14,7 @@ Our paper may be cited with the following bibtex
 
 Evaluation for the wilderness impact curve is now supported using detectron2
 
-### Dataset is expected under `dataset/` in the following structure 
+### Dataset is expected under `datasets/` in the following structure 
 For Pascal VOC:
 ```
 VOC20{07,12}/
