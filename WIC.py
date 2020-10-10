@@ -2,6 +2,7 @@ import logging
 import torch
 import numpy as np
 from matplotlib import pyplot as plt
+import pathlib
 
 logger = logging.getLogger("detectron2")
 
@@ -14,7 +15,9 @@ def PR_plotter(Precision, Recall, cls_name, ap):
     plt.xlabel('Recall', fontsize=20)
     plt.axis([0, 1, 0, 1])
     plt.legend(loc=3, prop={'size': 25}, frameon=False)
-    plt.savefig(f"PR/{cls_name}_Precision_recall.pdf", bbox_inches="tight")
+    file_name = pathlib.Path(f"PR/{cls_name}_Precision_recall.pdf")
+    file_name.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(file_name, bbox_inches="tight")
 
 
 def calculate_precision_recall(TP_vs_FP, scores, total_no_of_pos):
