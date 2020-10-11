@@ -75,6 +75,7 @@ def WIC_analysis(eval_info,Recalls_to_process,wilderness):
         no_of_mixed_unknown_images = int(wilderness_level*no_of_closedSetImages)
         if no_of_mixed_unknown_images>len(eval_predictions['correct'][mixed_unknowns]):
             break
+        logger.info(f"{f' Performance at Wilderness level {wilderness_level:.2f} '.center(90, '*')}")
         wilderness_processed.append(wilderness_level)
         correct = eval_predictions['correct'][closed_set_samples].tolist() + \
                   eval_predictions['correct'][mixed_unknowns][:no_of_mixed_unknown_images].tolist()
@@ -100,11 +101,11 @@ def WIC_analysis(eval_info,Recalls_to_process,wilderness):
                 ap.append(torch.max(Precision[Recall >= thresh]))
             ap = torch.mean(torch.tensor(ap))
             all_ap.append(ap)
-            logger.info(f"AP for {cls_no}: {ap}")
+            logger.info(f"AP for {cls_no} at wilderness {wilderness_level:.2f}: {ap}")
         current_WIC_precision_values = torch.tensor(current_WIC_precision_values)
         current_WIC_precision_values = torch.mean(current_WIC_precision_values, dim=0).tolist()
         WIC_precision_values.append(current_WIC_precision_values)
-        logger.info(f"mAP: {torch.mean(torch.tensor(all_ap))}")
+        logger.info(f"mAP at wilderness {wilderness_level:.2f}: {torch.mean(torch.tensor(all_ap))}")
     WIC_precision_values = torch.tensor(WIC_precision_values)
     WIC_precision_values = WIC_precision_values[0,:]/WIC_precision_values
     WIC_precision_values = WIC_precision_values -1
