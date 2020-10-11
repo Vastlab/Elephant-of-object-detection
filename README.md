@@ -29,6 +29,21 @@ coco/
     # image files that are mentioned in the corresponding json
 ```
 
+### Training models for the evaluation
+In order to run the evaluation please prepare a model trained with the protocol files in this repo.
+
+You may use the following command to train a FasterRCNN model:
+
+```
+python main.py --num-gpus 8 --config-file training_configs/faster_rcnn_R_50_FPN.yaml
+```
+
+For convenienve a pretrained FasterRCNN model has been provided at: https://vast.uccs.edu/~adhamija/Papers/Elephant/pretrained_models/FasterRCNN.zip
+
+### Running the evaluation script
+
+Please ensure your config is correctly set to load the models trained above. You might want to set the `OUTPUT_DIR` detectron2 config
+
 The following command may be used to run the complete evaluation
 
 ```python main.py --num-gpus 2 --config-file training_configs/faster_rcnn_R_50_FPN.yaml --resume --eval-only```
