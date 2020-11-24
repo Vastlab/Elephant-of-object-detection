@@ -1,8 +1,8 @@
-# Configuration for training with 4 gpus
+# Configuration for training with 8 gpus
 _BASE_: "~/detectron2/detectron2/configs/Base-RCNN-FPN.yaml"
 MODEL:
   WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
-  MASK_ON: False
+  MASK_ON: True
   RESNETS:
     DEPTH: 50
   ROI_HEADS:
@@ -13,7 +13,7 @@ DATASETS:
 #  TEST: ('custom_voc_2007_test','Mixed_Unknowns')
 
 SOLVER:
-  BASE_LR: 0.01
-  STEPS: (24000, 32000)
-  MAX_ITER: 36000
+  BASE_LR: 0.005
+  STEPS: (12000, 16000)
+  MAX_ITER: 18000
   WARMUP_ITERS: 100

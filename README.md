@@ -38,7 +38,7 @@ You may use the following command to train a FasterRCNN model:
 python main.py --num-gpus 8 --config-file training_configs/faster_rcnn_R_50_FPN.yaml
 ```
 
-For convenienve a pretrained FasterRCNN model has been provided at: https://vast.uccs.edu/~adhamija/Papers/Elephant/pretrained_models/FasterRCNN.zip
+For convenience models trained with the config files in this repo have been provided at: https://vast.uccs.edu/~adhamija/Papers/Elephant/pretrained_models/
 
 ### Running the evaluation script
 

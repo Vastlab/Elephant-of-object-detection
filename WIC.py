@@ -58,7 +58,7 @@ def only_mAP_analysis(correct, scores, pred_classes, category_counts, categories
             PR_plotter(Precision, Recall, categories[cls_no+1]['name'], ap)
         all_ap.append(ap)
 
-        logger.info(f"AP for {cls_no}: {ap}")
+        logger.info(f"AP for class no. {int(cls_no)}: {ap}")
     logger.info(f"mAP: {torch.mean(torch.tensor(all_ap))}")
 
 def WIC_analysis(eval_info,Recalls_to_process,wilderness):
@@ -101,7 +101,7 @@ def WIC_analysis(eval_info,Recalls_to_process,wilderness):
                 ap.append(torch.max(Precision[Recall >= thresh]))
             ap = torch.mean(torch.tensor(ap))
             all_ap.append(ap)
-            logger.info(f"AP for {cls_no} at wilderness {wilderness_level:.2f}: {ap}")
+            logger.info(f"AP for class no. {int(cls_no)} at wilderness {wilderness_level:.2f}: {ap}")
         current_WIC_precision_values = torch.tensor(current_WIC_precision_values)
         current_WIC_precision_values = torch.mean(current_WIC_precision_values, dim=0).tolist()
         WIC_precision_values.append(current_WIC_precision_values)

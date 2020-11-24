@@ -77,8 +77,9 @@ def do_test(cfg, model):
                               eval_info['category_counts'])
         Recalls_to_process = (0.1, 0.3, 0.5)
         wilderness = torch.arange(0, 5, 0.1).tolist()
-        WIC_values,wilderness_processed = WIC.WIC_analysis(eval_info,Recalls_to_process=Recalls_to_process,wilderness=wilderness)
-        plot_WIC(WIC_values, Recalls_to_process, wilderness_processed, line_style='--', label='Faster RCNN')
+        WIC_values,wilderness_processed = WIC.WIC_analysis(eval_info,Recalls_to_process=Recalls_to_process,
+                                                           wilderness=wilderness)
+        plot_WIC(WIC_values, Recalls_to_process, wilderness_processed, line_style='--', label='WIC')
     return
 
 
